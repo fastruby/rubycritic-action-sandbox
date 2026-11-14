@@ -4,11 +4,11 @@ class Greeter
     @name = name
   end
 
-  def hello
-    "Hello, #{@name}"
-  end
-
   def shout
     hello.upcase
+  end
+
+  def hello
+    "Hello, #{@name}"
   end
 end
