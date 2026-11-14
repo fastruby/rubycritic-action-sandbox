@@ -1,0 +1,55 @@
+name: RubyCritic
+on: pull_request
+
+jobs:
+  default:
+    if: ${{ !startsWith(github.head_ref, 'threshold/') && !startsWith(github.head_ref, 'readonly/') }}
+    runs-on: ubuntu-latest
+    permissions:
+      contents: read
+      pull-requests: write
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+      - uses: ruby/setup-ruby@v1
+        with:
+          ruby-version: '3.4'
+      - uses: fastruby/rubycritic-github-action@dev
+        with:
+          paths: lib
+
+  threshold:
+    if: ${{ startsWith(github.head_ref, 'threshold/') }}
+    runs-on: ubuntu-latest
+    permissions:
+      contents: read
+      pull-requests: write
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+      - uses: ruby/setup-ruby@v1
+        with:
+          ruby-version: '3.4'
+      - uses: fastruby/rubycritic-github-action@dev
+        with:
+          paths: lib
+          threshold: 0
+
+  readonly:
+    if: ${{ startsWith(github.head_ref, 'readonly/') }}
+    runs-on: ubuntu-latest
+    permissions:
+      contents: read
+      pull-requests: read
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+      - uses: ruby/setup-ruby@v1
+        with:
+          ruby-version: '3.4'
+      - uses: fastruby/rubycritic-github-action@dev
+        with:
+          paths: lib
