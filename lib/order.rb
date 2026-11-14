@@ -23,4 +23,8 @@ class Order
     items.each { |i| sum += i.price * i.quantity if i.active? }
     sum
   end
+
+  def extra(a)
+    a.map { |x| x * 2 }
+  end
 end
