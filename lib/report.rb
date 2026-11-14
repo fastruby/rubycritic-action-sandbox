@@ -6,6 +6,8 @@ class Report
     lines << '------'
     items.each { |i| lines << i }
     lines << '------'
+    lines << "Generated"
+    lines << "By"
     lines << "Total: #{items.size}"
     lines.join("\n")
   end
